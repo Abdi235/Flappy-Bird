@@ -7,3 +7,6 @@ body {
     /* background-color: skyblue; */
     background-image: url("./flappybirdbg.png");
 }
+#jumpSound {
+    display: none; /* Hide the sound element */
+  }
