@@ -35,6 +35,11 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
+let gameMusic = document.getElementById("gameMusic");
+gameMusic.src = "Flappy Bird Theme Song.mp3";
+gameMusic.load();
+gameMusic.loop = true; // Loop the music
+gameMusic.play(); // Start playing the music
 
 window.onload = function () {
   board = document.getElementById("board");
@@ -62,11 +67,17 @@ window.onload = function () {
   requestAnimationFrame(update);
   setInterval(placePipes, 1500); //every 1.5 seconds
   document.addEventListener("keydown", moveBird);
+  let jumpSound = document.getElementById("jumpSound");
+  jumpSound.src = "./jump.mp3";
+  jumpSound.load();
 };
 
 function update() {
   requestAnimationFrame(update);
   if (gameOver) {
+    // Play game over sound when the game is over
+    let gameOverSound = document.getElementById("gameOverSound");
+    gameOverSound.play();
     return;
   }
   context.clearRect(0, 0, board.width, board.height);
@@ -146,10 +157,14 @@ function placePipes() {
 
 function moveBird(e) {
   if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX") {
-    //jump
+    // Jump
     velocityY = -6;
 
-    //reset game
+    // Play jump sound
+    let jumpSound = document.getElementById("jumpSound");
+    jumpSound.play();
+
+    // Reset game if it's over
     if (gameOver) {
       bird.y = birdY;
       pipeArray = [];
